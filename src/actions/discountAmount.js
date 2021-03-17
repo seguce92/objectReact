@@ -4,7 +4,7 @@ import updateCart from './updateCart'
 
 function findProduct(cart, product) {
     for(let i = 0; i < cart.length; i++) {
-        if(cart[i].id === product.id){
+        if(cart[i].id == product.id){
             if ( cart[i].cantidad > 1 )
                 cart[i].cantidad -= 1
         }
@@ -15,19 +15,17 @@ function findProduct(cart, product) {
 
 const discountAmount = (product, mark) => {
     let cartProducts = JSON.parse(persistentCart().get());
-    let old = []
-    if ( mark == 'Samsung' ) {
-        old = findProduct(cartProducts.productos.Samsung, product)
-        cartProducts.productos.Samsung = old
-    } else if ( mark == 'Apple') {
-        old = findProduct(cartProducts.productos.Apple, product)
-        cartProducts.productos.Apple = old
-    } else {
-        old = findProduct(cartProducts.productos.Motorola, product)
-        cartProducts.productos.Motorola = old
-    }
 
-    updateCart(cartProducts)
+    Object.keys(cartProducts.productos).map(m => {
+        if ( m == mark ) {
+            let old = findProduct(cartProducts.productos[mark], product)
+            cartProducts.productos[mark] = old
+        }
+    })
+
+    cartProducts = updateCart(cartProducts)
+
+    return cartProducts
 }
 
 export default discountAmount
