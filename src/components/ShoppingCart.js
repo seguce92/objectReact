@@ -57,12 +57,13 @@ class ShoppingCart extends React.Component {
                                         </div>
                                         <div class="flex flex-col items-center my-auto">
                                             <label className="font-bold text-lg">$ { phone.precio * phone.cantidad }</label>
-                                            <div className="flex space-x-4">
+                                            <div className="flex space-x-2">
                                                 <button className="bg-gray-200 font-bold w-6 h-6 rounded hover:shadow-lg"
                                                     onClick={ () => this.setState({
                                                             shop: discountAmount(phone, mark) 
                                                         })
                                                     }>-</button>
+                                                <label>{ phone.cantidad }</label>
                                                 <button className="bg-gray-200 font-bold w-6 h-6 rounded hover:shadow-lg"
                                                     onClick={ () => this.setState({
                                                             shop: addProduct(phone, mark)
